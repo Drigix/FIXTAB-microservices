@@ -2,6 +2,7 @@ package com.fixtab.user.controller;
 
 import java.util.List;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,11 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @CircuitBreaker(name = "company", fallbackMethod = "fallbackMethod")
     @ResponseStatus(HttpStatus.OK)
     public UserDTO getCurrentUser(@PathVariable Long id){ return userService.getCurrentUser(id); }
+
+    public String fallbackMethod(Long id, RuntimeException runtimeException) {
+        return "Something went wrong!";
+    }
 }

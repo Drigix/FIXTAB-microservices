@@ -18,6 +18,7 @@
     <module>user</module>
     <module>company</module>
       <module>discovery-server</module>
+      <module>gateway</module>
   </modules>
 
   <properties>
