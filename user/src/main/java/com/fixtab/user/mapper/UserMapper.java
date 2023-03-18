@@ -4,24 +4,20 @@ import java.util.List;
 
 import com.fixtab.user.model.User;
 import com.fixtab.user.model.dto.UserDTO;
+import org.mapstruct.Mapper;
 
-public class UserMapper {
-    
-    public User toEntity(UserDTO userDTO) {
+@Mapper(componentModel = "spring", uses = {})
+public interface UserMapper {
+    UserDTO toDto(User user);
+
+    User toEntity(UserDTO userDTO);
+
+    default User fromId (Long id) {
+        if (id == null) {
+            return null;
+        }
         User user = new User();
-        user.setEmail(userDTO.getEmail());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setPassword(userDTO.getPassword());
+        user.setId(id);
         return user;
-    }
-
-    public static UserDTO toDto(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setEmail(user.getEmail());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        userDTO.setPassword(user.getPassword());
-        return userDTO;
     }
 }

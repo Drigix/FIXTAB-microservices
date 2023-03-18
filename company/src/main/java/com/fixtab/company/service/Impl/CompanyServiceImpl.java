@@ -21,12 +21,20 @@ public class CompanyServiceImpl implements CompanyService {
     private final CompanyRepository companyRepository;
 
     private final CompanyMapper companyMapper;
-    
+
+    @Override
     public void createCompany(CompanyDTO companyDTO) {
         Company company = this.companyMapper.toEntity(companyDTO);
 
         companyRepository.save(company);
         log.info("User {} is created", company.getId());
     }
+
+    @Override
+    public CompanyDTO getCompanyById(Long id) {
+        Company company = companyRepository.getById(id);
+        return companyMapper.toDto(company);
+    }
+
 
 }

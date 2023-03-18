@@ -9,4 +9,6 @@ public interface UserService {
     public void createUser(UserDTO userDTO);
 
     public List<UserDTO> getAllUsers();
+
+    public UserDTO getCurrentUser(Long id);
 }
