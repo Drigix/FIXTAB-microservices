@@ -3,7 +3,9 @@ package com.fixtab.user.service.Impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fixtab.user.event.UserEvent;
 import com.fixtab.user.model.dto.Company;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import com.fixtab.user.mapper.UserMapper;
@@ -26,6 +28,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     private final WebClient webClient;
+
+    private final KafkaTemplate<String, UserEvent> kafkaTemplate;
 
     @Override
     public void createUser(UserDTO userDTO) {
@@ -52,6 +56,7 @@ public class UserServiceImpl implements UserService {
                 .block();
 
         log.info("User company is {}", company.getName());
+        kafkaTemplate.send("notificationTopic", new UserEvent(user.getId()));
 
         return userMapper.toDto(user);
     }
