@@ -3,22 +3,12 @@ body {
 }
 
 .main {
-  background-color: rgb(48, 46, 46);
+  background-color: var(--background-color);
   color: white;
   height: 100vh;
 }
 
-.login-card {
-  width: 50%;
-  border: 2px solid orange;
-  border-radius: 15px;
+.login-page {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-
-  input {
-    width: 200px;
-    margin: 20px;
-  }
 }
